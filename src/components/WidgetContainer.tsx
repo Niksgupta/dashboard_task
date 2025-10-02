@@ -1,12 +1,13 @@
-import React from 'react'
+import React, { Suspense, lazy, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import type { RootState } from '../app/store'
 import { reorderWidgets, addWidget, removeWidget, type Widget } from '../features/dashboard/dashboardSlice'
 import { DragDropContext, Droppable, Draggable, type DropResult } from 'react-beautiful-dnd'
 
-import WeatherWidget from './widgets/WeatherWidget'
-import CryptoWidget from './widgets/CryptoWidget'
-import TaskListWidget from './widgets/TaskListWidget'
+// Lazy load all widgetstill weather and cyrpto api returns response 
+const WeatherWidget = lazy(() => import('./widgets/WeatherWidget'))
+const CryptoWidget = lazy(() => import('./widgets/CryptoWidget'))
+const TaskListWidget = lazy(() => import('./widgets/TaskListWidget'))
 
 const widgetComponents: Record<string, React.FC<any>> = {
   weather: WeatherWidget,
@@ -23,16 +24,14 @@ const availableWidgetTypes = [
 type WidgetType = 'weather' | 'crypto' | 'tasks'
 
 export default function WidgetContainer() {
-  const widgets = useSelector((state: RootState) => state.dashboard.widgets);
+  const widgets = useSelector((state: RootState) => state.dashboard.widgets)
   const dispatch = useDispatch()
-const [selectedWidget, setSelectedWidget] = React.useState<WidgetType>(availableWidgetTypes[0].type)
+  const [selectedWidget, setSelectedWidget] = useState<WidgetType>(availableWidgetTypes[0].type)
 
   const onDragEnd = (result: DropResult) => {
-    if (!result.destination) 
-      return
+    if (!result.destination) return
 
-    const reordered = Array.from(widgets);
-
+    const reordered = Array.from(widgets)
     const removed = reordered.splice(result.source.index, 1)[0]
     if (removed) {
       reordered.splice(result.destination.index, 0, removed)
@@ -40,15 +39,15 @@ const [selectedWidget, setSelectedWidget] = React.useState<WidgetType>(available
     }
   }
 
-const handleAddWidget = () => {
-  const newWidgetID = `${selectedWidget}-${Date.now()}`
-  let newWidget: Widget = { id: newWidgetID, type: selectedWidget }
+  const handleAddWidget = () => {
+    const newWidgetID = `${selectedWidget}-${Date.now()}`
+    let newWidget: Widget = { id: newWidgetID, type: selectedWidget }
 
-  if (selectedWidget === 'weather') newWidget.city = 'Pune'
-  if (selectedWidget === 'crypto') newWidget.coin = 'bitcoin'
+    if (selectedWidget === 'weather') newWidget.city = 'Pune'
+    if (selectedWidget === 'crypto') newWidget.coin = 'bitcoin'
 
-  dispatch(addWidget(newWidget))
-}
+    dispatch(addWidget(newWidget))
+  }
 
   const handleRemoveWidget = (id: string) => {
     dispatch(removeWidget(id))
@@ -57,15 +56,13 @@ const handleAddWidget = () => {
   return (
     <>
       <div style={{ marginBottom: '1rem', display: 'flex', gap: '1rem', alignItems: 'center' }}>
-      <select
-  value={selectedWidget}
-  onChange={e => setSelectedWidget(e.target.value as WidgetType)}
->
-  {availableWidgetTypes.map(w => (
-    <option value={w.type} key={w.type}>{w.label}</option>
-  ))}
-</select>
-
+        <select value={selectedWidget} onChange={e => setSelectedWidget(e.target.value as WidgetType)}>
+          {availableWidgetTypes.map(w => (
+            <option value={w.type} key={w.type}>
+              {w.label}
+            </option>
+          ))}
+        </select>
         <button onClick={handleAddWidget}>Add Widget</button>
       </div>
 
@@ -108,7 +105,9 @@ const handleAddWidget = () => {
                         >
                           &times;
                         </button>
-                        <Widget {...w} />
+                        <Suspense fallback={<div style={{ minWidth: 200 }}>Loading widgetsss</div>}>
+                          <Widget {...w} />
+                        </Suspense>
                       </div>
                     )}
                   </Draggable>
