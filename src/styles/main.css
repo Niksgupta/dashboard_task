@@ -1,0 +1,151 @@
+/* basic styles */
+body, html, #root {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f5f6fa;
+}
+
+/* Dashboard css  */
+.dashboard {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  grid-template-rows: 100vh;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Sidebar styling */
+.sidebar {
+  background-color: #2f3542;
+  color: white;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Navbar css */
+.navbar {
+  background-color: #57606f;
+  color: white;
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 4px rgb(0 0 0 / 0.1);
+}
+
+/* Main content area inside dashboard styles addinh */
+main {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-color: #dff9fb;
+  overflow-y: auto;
+}
+
+.widget-container {
+  display: flex;
+  gap: 15px;
+  padding: 20px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+}
+
+.widget {
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+  min-width: 280px;
+  box-shadow: 0px 2px 8px rgba(0,0,0,0.1);
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.widget h3 {
+  margin: 0;
+  font-weight: 600;
+  font-size: 1.2rem;
+  color: #2f3542;
+}
+
+input[type="text"], input[type="password"], input[type="checkbox"] {
+  font-size: 1rem;
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  outline: none;
+}
+
+input[type="text"]:focus, input[type="password"]:focus {
+  border-color: #3742fa;
+  box-shadow: 0 0 0 2px rgba(55, 66, 250, 0.2);
+}
+
+button {
+  padding: 8px 16px;
+  background-color: #3742fa;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  font-weight: 600;
+}
+
+button:hover {
+  background-color: #273cfa;
+}
+
+.task-widget ul {
+  padding-left: 0;
+  list-style-type: none;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.task-widget li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.task-widget li button {
+  background: transparent;
+  color: #ff4757;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  font-size: 0.9rem;
+  margin-left: auto;
+}
+
+/* for responsive making */
+@media (max-width: 768px) {
+  .dashboard {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+  }
+
+  .sidebar {
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 10px;
+  }
+
+  .widget-container {
+    flex-direction: column;
+    overflow-x: visible;
+    padding: 10px;
+  }
+
+  .widget {
+    min-width: auto;
+    width: 100%;
+  }
+}
