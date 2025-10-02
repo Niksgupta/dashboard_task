@@ -1,0 +1,64 @@
+.login-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(135deg, #6b73ff 0%, #000dff 100%);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  padding: 1rem;
+}
+
+.login-card {
+  background: white;
+  padding: 2.5rem;
+  width: 100%;
+  max-width: 400px;
+  border-radius: 12px;
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+}
+
+
+.login-title {
+  margin-bottom: 1.5rem;
+  font-weight: 700;
+  font-size: 1.75rem;
+  color: #1a1a1a;
+  text-align: center;
+}
+
+
+.login-label {
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+  font-weight: 600
+  ;
+  color: #333;
+  user-select: none;
+}
+
+
+.login-input {
+  padding: 0.5rem 0.75rem;
+  font-size: 1rem;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  transition: border-color 0.3s ease;
+  outline-offset: 2px;
+}
+
+
+.login-button {
+  margin-top: 2rem;
+  padding: 0.75rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: white;
+  background-color: #000dff;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+

@@ -122,6 +122,7 @@ export default function TaskListWidget() {
           </li>
         ))}
       </ul>
+      <p>Double click on task to edit</p>
     </div>
   )
 }
